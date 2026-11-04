@@ -1,0 +1,26 @@
+name: Build Windows exe scuro
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa PyInstaller
+        run: pip install pyinstaller
+
+      - name: Compila
+        run: pyinstaller --onefile --windowed --name GegenwichteScuro gegenwichte_widget_scuro.py
+
+      - name: Salva il programma
+        uses: actions/upload-artifact@v4
+        with:
+          name: GegenwichteScuro-windows
+          path: dist/GegenwichteScuro.exe
